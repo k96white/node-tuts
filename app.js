@@ -1,11 +1,10 @@
-const http = require("http");
-const port = 3000;
+const { createReadStream } = require("fs");
 
-/* Using Event emitter api */
-const server = http.createServer();
-server.on("request", (req, res) => {
-  res.end("This is demo event");
+const stream = createReadStream("./content/bigFile", {
+  highWaterMark: 90000,
+  encoding: "utf-8",
 });
-server.listen(port, () => {
-  console.log("Listening on port g", port);
+//C:\Users\k96wh\Desktop\KiranFolder\NodeJsTutorial\content\bigFile
+stream.on("data", (result) => {
+  console.log(result);
 });
